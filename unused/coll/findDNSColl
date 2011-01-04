@@ -1,0 +1,3 @@
+#!/bin/bash
+nmap -p53 172.16.200.* > ~/coll.DNS
+less ~/coll.DNS

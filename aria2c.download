@@ -1,0 +1,9 @@
+#!/bin/bash
+if [ $# -ne 2 ]
+then
+	echo 'Usage: aria2c.download N LINK'
+	echo 'Where N is the number of splits, and the number of simultaneous downloads, and LINK is the HTTP link.'
+	exit
+fi
+
+aria2c -j $1 -s $1 -c $2

@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo tsocks apt-get update; sudo tsocks apt-get --show-upgraded upgrade

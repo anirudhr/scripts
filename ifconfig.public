@@ -1,0 +1,42 @@
+#!/bin/bash
+curl ifconfig.me
+#$ curl ifconfig.me	⇒	122.167.89.112
+#$ curl ifconfig.me/ip	⇒	122.167.89.112
+#$ curl ifconfig.me/host	⇒	ABTS-KK-Dynamic-112.89.167.122.airtelbroadband.in
+#$ curl ifconfig.me/ua	⇒	Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.14pre) Gecko/20101210 Ubuntu/10.04 (lucid) Namoroka/3.6.14pre
+#$ curl ifconfig.me/port	⇒	54784
+#$ curl ifconfig.me/lang	⇒	en-us,en;q=0.5
+#$ curl ifconfig.me/keepalive	⇒	480
+#$ curl ifconfig.me/connection	⇒	keep-alive
+#$ curl ifconfig.me/encoding	⇒	gzip,deflate
+#$ curl ifconfig.me/mime	⇒	text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+#$ curl ifconfig.me/charset	⇒	ISO-8859-1,utf-8;q=0.7,*;q=0.7
+#$ curl ifconfig.me/via	⇒	
+#$ curl ifconfig.me/forwarded	⇒	
+#$ curl ifconfig.me/all	⇒	ip_addr: 122.167.89.112
+#remote_host: ABTS-KK-Dynamic-112.89.167.122.airtelbroadband.in
+#user_agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.14pre) Gecko/20101210 Ubuntu/10.04 (lucid) Namoroka/3.6.14pre
+#port: 54784
+#lang: en-us,en;q=0.5
+#connection: keep-alive
+#keep_alive: 480
+#encoding: gzip,deflate
+#mime: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+#charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+#via:
+#forwarded:
+#$ curl ifconfig.me/all/xml	⇒	<info>
+#    <charset>ISO-8859-1,utf-8;q=0.7,*;q=0.7</charset>
+#    <connection>keep-alive</connection>
+#    <encoding>gzip,deflate</encoding>
+#    <forwarded></forwarded>
+#    <ip_addr>122.167.89.112</ip_addr>
+#    <keep_alive>480</keep_alive>
+#    <lang>en-us,en;q=0.5</lang>
+#    <mime>text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</mime>
+#    <port>54784</port>
+#    <remote_host>ABTS-KK-Dynamic-112.89.167.122.airtelbroadband.in</remote_host>
+#    <user_agent>Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.14pre) Gecko/20101210 Ubuntu/10.04 (lucid) Namoroka/3.6.14pre</user_agent>
+#    <via></via>
+#</info>
+#$ curl ifconfig.me/all/json	⇒	{"connection":"keep-alive","ip_addr":"122.167.89.112","lang":"en-us,en;q=0.5","remote_host":"ABTS-KK-Dynamic-112.89.167.122.airtelbroadband.in","user_agent":"Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.14pre) Gecko/20101210 Ubuntu/10.04 (lucid) Namoroka/3.6.14pre","charset":"ISO-8859-1,utf-8;q=0.7,*;q=0.7","port":"54784","via":"","forwarded":"","mime":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","keep_alive":"480","encoding":"gzip,deflate"}

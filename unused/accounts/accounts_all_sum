@@ -1,0 +1,26 @@
+#!/usr/bin/ruby
+
+amt = `cat /data/docs/.accounts/.accounts.file | cut -f 3`.chomp!
+amtIOU = `cat /data/docs/.accounts/.IOUs.file | cut -f 2`.chomp!
+
+amtLen = `cat /data/docs/.accounts/.accounts.file | cut -f 3 | wc -l`.chomp.to_i
+amtIOULen = `cat /data/docs/.accounts/.IOUs.file | cut -f 2 | wc -l`.chomp.to_i
+
+sum = 0
+sumIOU = 0
+
+if amtLen > 0 then
+	for i in amt do
+		sum += i.to_i
+	end
+end
+
+if amtIOULen > 0 then
+	for i in amtIOU do
+		sumIOU += i.to_i
+	end
+end
+
+puts "Balancing credits and debits, the money I have left is:"
+puts "Total: #{sum} INR."
+puts "IOUs: #{sumIOU} INR."

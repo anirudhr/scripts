@@ -1,0 +1,2 @@
+0. Script to check if a command exists in $PATH using '-f'. (Use sed to convert the data of $PATH from colon-separated to comma-separated to use within {})
+1. Script to check if xclip exists, and if so, to use it to copy current date and time (default format + provision of format string) to the clipboard.

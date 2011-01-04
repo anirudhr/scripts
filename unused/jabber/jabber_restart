@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#sudo chmod u+x /etc/init.d/jabberd14
+
+sudo /etc/init.d/jabberd14 restart

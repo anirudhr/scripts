@@ -1,0 +1,20 @@
+#!/bin/bash
+if [ $EUID -ne 0 ]
+then
+	echo "Run as root. Don't be a fool."
+else
+	normal=/etc/ppp/options
+	normal_backup=/etc/ppp/options.normal
+	record_backup=/etc/ppp/options.record
+	if [ -f $record_backup ] #Recording is inactive
+	then
+		mv $normal $normal_backup
+		mv $record_backup $normal
+		echo "Turned on pppd recording."
+	elif [ -f $normal_backup ] #Recording is active.
+	then
+		mv $normal $record_backup
+		mv $normal_backup $normal
+		echo 'Turned off pppd recording.'
+	fi
+fi

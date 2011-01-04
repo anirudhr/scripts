@@ -1,0 +1,98 @@
+#!/usr/bin/ruby
+
+cont = 1
+while cont == 1
+	puts "0. IOU\n1. Credit / Debit\nEnter choice: "
+	c0 = gets.chomp.to_i
+	case c0
+		when 1
+			puts "Today (#{`date +'%d-%m-%Y'`.chomp})'s account? (1 / 0):"
+			ch = gets.chomp.to_i
+			if ch == 1 then
+				date = `date +'%d-%m-%Y'`.chomp!
+			else
+				puts 'Enter the date as DD-MM-YYYY:'
+				date = gets.chomp!
+			end
+
+			puts "0. Credit\n1. Debit\nEnter choice:"
+			c1 = gets.chomp.to_i
+
+			puts 'Enter amount:'
+			amt = gets.chomp.to_i
+
+			amt *= -1 if c1 == 1
+
+			puts 'Enter description:'
+
+			des = gets.chomp!
+
+			wriStr = date + "\t" + des + "\t" + amt.to_s
+
+			puts 'Are you sure? (1 / !1):'
+			ch = gets.chomp.to_i
+
+			`echo "#{wriStr}" >> /data/docs/.accounts/.accounts.file` if ch == 1
+		when 0
+			puts "0. Delete entry\n1. Add entry\nEnter choice:"
+	c1 = gets.chomp.to_i
+	case c1
+		when 1
+			puts 'Enter name:'
+			name = gets.chomp!
+			puts "0. I am owed.\n1. I owe #{name}.\nEnter choice:"
+			ch = gets.chomp.to_i
+
+			puts 'Enter amount:'
+			amt = gets.chomp.to_i
+
+			amt *= -1 if ch == 1
+
+			wriStr = name + "\t" + amt.to_s
+
+			puts 'Are you sure? (1 / !1):'
+			ch = gets.chomp.to_i
+
+			`echo "#{wriStr}" >> /data/docs/.accounts/.IOUs.file` if ch == 1
+		when 0
+			l = `cat /data/docs/.accounts/.IOUs.file`
+			list = []
+			puts 'List of entries:'
+			j = 0
+			for i in l do
+				print j, ': ', i
+				list[j] = i
+				j += 1
+			end
+			
+			puts 'Select the entry to delete:'
+			del = gets.chomp.to_i
+			puts 'Are you sure? (1 / !1):'
+			chh = gets.chomp.to_i
+			if chh == 1 then
+				if del >= 0 and del < list.size then
+					print "Deleted element \"", list[del].chomp, "\"\n"
+					list.delete_at(del)
+					`> /data/docs/.accounts/.IOUs.file`
+					for i in list do
+						`echo -n "#{i}" >>  /data/docs/.accounts/.IOUs.file`
+					end
+				else
+					puts 'Error. Out of bounds.'
+				end
+			end
+		else
+			puts 'Error, please choose 0 xor 1.'
+	end
+		else
+			puts 'Error, please choose 0 xor 1.'
+	end
+
+	puts 'Continue? (1 / !1): '
+	cont = gets.chomp.to_i
+
+	puts 'Next entry:' if cont == 1
+
+end
+
+puts 'End of session.'

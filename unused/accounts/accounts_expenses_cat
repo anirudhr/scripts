@@ -1,0 +1,2 @@
+#!/bin/bash
+cat /data/docs/.accounts/.accounts.file

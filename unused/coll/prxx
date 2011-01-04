@@ -1,0 +1,8 @@
+#echo "User:"
+#read username
+#echo "IP (172.16.):"
+#read ip
+#echo "Port:"
+#read port
+#vssh -v -D $port $username@172.16.$ip
+ssh -v -D $1 nil@172.16.31.2

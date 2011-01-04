@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo 'Enter name of file to save to:'
+read fname
+
+ffmpeg -f x11grab -s 1440x900 -r 30 -i :0.0 -sameq $fname

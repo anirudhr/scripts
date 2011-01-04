@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo 'Enter new BASH custom script filename:'
+read name
+if [ -e /script_files/$name ]
+then
+	echo 'That file already exists!'
+else
+	echo '#!/bin/bash
+' > /script_files/$name
+	chmod u+x /script_files/$name
+	vim /script_files/$name
+fi

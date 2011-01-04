@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo ifconfig vboxnet0 down

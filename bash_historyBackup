@@ -1,0 +1,3 @@
+#!/bin/bash
+day=`date +'%d-%m-%Y_%H-%M-%S'`
+cp ~/.bash_history /data/backupz/bash_history/bash_history_$day

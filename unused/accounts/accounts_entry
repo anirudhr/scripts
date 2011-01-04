@@ -1,0 +1,40 @@
+#!/usr/bin/ruby
+
+cont = 1
+while cont == 1
+	puts "Today (#{`date +'%d-%m-%Y'`.chomp})'s account? (1 / 0):"
+	ch = gets.chomp.to_i
+	if ch == 1 then
+		date = `date +'%d-%m-%Y'`.chomp!
+	else
+		puts 'Enter the date as DD-MM-YYYY:'
+		date = gets.chomp!
+	end
+
+	puts "0. Credit\n1. Debit\nEnter choice:"
+	ch = gets.chomp.to_i
+
+	puts 'Enter amount:'
+	amt = gets.chomp.to_i
+
+	amt *= -1 if ch == 1
+
+	puts 'Enter description:'
+
+	des = gets.chomp!
+
+	wriStr = date + "\t" + des + "\t" + amt.to_s
+
+	puts 'Are you sure? (1 / 0):'
+	ch = gets.chomp.to_i
+
+	`echo "#{wriStr}" >> /data/docs/.accounts/.accounts.file` if ch == 1
+
+	puts 'Continue? (1 / 0): '
+	cont = gets.chomp.to_i
+
+	puts 'Next entry:' if cont == 1
+
+end
+
+puts 'End of session.'

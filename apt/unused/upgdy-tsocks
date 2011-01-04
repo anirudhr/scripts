@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo tsocks apt-get --allow-unauthenticated update; sudo tsocks apt-get --yes --show-upgraded --allow-unauthenticated upgrade

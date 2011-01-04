@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ $EUID -ne 0 ]
+then
+	echo "Run as root. Don't be a fool."
+else
+	while [ 1 ]
+	do
+		apt-get -y --allow-unauthenticated upgrade
+	done
+fi

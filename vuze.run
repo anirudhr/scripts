@@ -1,0 +1,4 @@
+#!/bin/bash
+nohup /data/linuxStuff/vuze/vuze/vuze &
+sleep 5
+rm nohup.out

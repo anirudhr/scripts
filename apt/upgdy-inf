@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "Run as root. Don't be a fool."
+while [ 1 ]
+do
+	apt-get update
+	apt-get --yes --show-upgraded --allow-unauthenticated upgrade
+done

@@ -1,0 +1,85 @@
+#!/bin/bash
+
+# This script takes inspiration from Chetan Surpur's blog post http://chetansurpur.com/blog/2010/11/magic-work-cycle.html
+# I used to use http://www.magicworkcycle.com/ but the slowness of my intertubes connection (the bell sound was getting torn apart) led me to yearn for an offline equivalent.
+
+# Quick thanks to http://linuxhelp.blogspot.com/2005/10/10-seconds-guide-to-bash-shell.html
+# I plan to add neatness with tput: http://www.ibm.com/developerworks/aix/library/au-learningtput/index.html
+# Maybe ncurses?!
+
+# Also, must add in future: ASCII graphic of an Elvin Gerbil solemnly dancing the mazurka during play time, and coding during work time.
+
+#Cool feature! Change Pidgin status. Thanks to Manoj Mardithaya for helping me with this.
+#(13:51:47) Manoj: purple-remote "setstatus?status=away&message=30 mins of work."
+#(13:51:55) Manoj: purple-remote "setstatus?status=available&message=play time"
+#(13:51:57) Manoj: there
+#(13:51:59) Manoj: just run those
+#This feature will be added soon.
+
+if [ $# -ne 3 -a $# -ne 1 ]
+then
+	echo 'Usage: 30slash30 [WORKMINUTES PLAYMINUTES] X'
+	echo 'Where X is 1 if you want to play first, and not 1 if you want to work first'
+else
+	if [ $# -eq 3 ]
+	then
+		S0MIN=$1
+		S1MIN=$2
+		ch=$3
+	else
+		S0MIN=30
+		S1MIN=30
+		ch=$1
+	fi	
+	S0MIN=`expr $S0MIN - 1`
+	S1MIN=`expr $S1MIN - 1`
+	SECINMIN=`expr 60 - 1`
+	
+	if [ $ch -eq 1 ]
+	then
+		S0='Play'
+		S1='Work'
+	else
+		S0='Work'
+		S1='Play'
+	fi
+
+	clear
+	
+	while [ 1 ]
+	do
+		i=$S0MIN
+		while [ $i -ge 0 ]
+		do
+			j=$SECINMIN
+			while [ $j -ge 0 ]
+			do
+				echo $S0
+				echo $i ':' $j
+				sleep 1
+				j=`expr $j - 1`
+				clear
+			done
+			i=`expr $i - 1`
+		done
+	
+		cvlc /usr/share/sounds/ubuntu/stereo/phone-outgoing-busy.ogg 2> /dev/null &
+	
+		i=$S1MIN
+		while [ $i -ge 0 ]
+		do
+			j=$SECINMIN
+			while [ $j -ge 0 ]
+			do
+				echo $S1
+				echo $i ':' $j
+				sleep 1
+				j=`expr $j - 1`
+				clear
+			done
+			i=`expr $i - 1`
+		done
+	
+		cvlc /usr/share/sounds/ubuntu/stereo/phone-outgoing-busy.ogg 2> /dev/null &
+	done
+fi
