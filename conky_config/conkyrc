@@ -20,8 +20,8 @@ draw_graph_borders yes
 default_color green
 default_shade_color black
 default_outline_color green #default is gr33n only
-alignment mr
-gap_x 10 #130
+alignment tr
+gap_x 5 #130
 gap_y 5 #50
 no_buffers yes
 uppercase no
@@ -64,15 +64,15 @@ ${downspeedgraph ppp0 25,107} ${alignr}${upspeedgraph ppp0 25,107}
 Total ${totaldown ppp0} ${alignr}Total ${totalup ppp0}
 $else
 PPP0 DOWN
-${if_up eth3}
-ETH3 ${hr 1}
-Down ${downspeedf eth3} k/s ${alignr}Up ${upspeedf eth3} k/s
-${downspeedgraph eth3 25,107} ${alignr}${upspeedgraph eth3 25,107}
-Total ${totaldown eth3} ${alignr}Total ${totalup eth3}
-$else
-ETH3 DOWN
 $endif
-$endif
+#${if_up eth3}
+#ETH3 ${hr 1}
+#Down ${downspeedf eth3} k/s ${alignr}Up ${upspeedf eth3} k/s
+#${downspeedgraph eth3 25,107} ${alignr}${upspeedgraph eth3 25,107}
+#Total ${totaldown eth3} ${alignr}Total ${totalup eth3}
+#$else
+#ETH3 DOWN
+#$endif
 ${if_running rhythmbox}
 RHYTHMBOX
 ${execp conkyRhythmbox --template=~/.conkyRhythmbox.template}
