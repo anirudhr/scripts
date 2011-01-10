@@ -1,4 +1,7 @@
 #!/bin/bash
+
+#Script that runs lkl when the guest session is active
+
 if [ $EUID -ne 0 ]
 then
 	echo "Run as root. Don't be a fool."
