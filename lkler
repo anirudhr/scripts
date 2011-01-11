@@ -2,10 +2,12 @@
 
 #Script that runs lkl when the guest session is active
 
-if [ $EUID -ne 0 ]
-then
-	echo "Run as root. Don't be a fool."
-else
-	echo "Hi!"
-fi
+echo "/usr/share/gdm/guest-session"
+
+#if [ $EUID -ne 0 ]
+#then
+#	echo "Run as root. Don't be a fool."
+#else
+#	echo "Hi!"
+#fi
 
