@@ -1,0 +1,31 @@
+#!/bin/sh
+
+## This script needs to be started at boot. When you made changes simply run the script manually.
+## eth0 is the LAN-connected interface
+## eth2 is the Internet-connected interface
+
+ifconfig eth0 10.0.0.1 netmask 255.255.255.0 broadcast 10.0.0.255 up
+
+# Enable IP Forwarding
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# Clean up iptables (flush it)
+iptables -F
+iptables -t nat -F
+iptables -X
+
+# Enable IP MASQUERADING/NAT
+iptables -t nat -A POSTROUTING -o eth2 -j MASQUERADE
+
+# Set firewall policies (default behaviour)
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+
+# Allow all connections not from eth2
+iptables -A INPUT -i ! eth2 -j ACCEPT
+
+# Allow all ICMP connections (like ping)
+iptables -A INPUT -p ICMP -j ACCEPT
+
+# Allow all already established connections
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
