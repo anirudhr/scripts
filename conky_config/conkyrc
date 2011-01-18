@@ -22,7 +22,7 @@ default_shade_color black
 default_outline_color green #default is gr33n only
 alignment tl
 gap_x 130 #130
-gap_y 5 #50
+gap_y 50 #50
 no_buffers yes
 uppercase no
 cpu_avg_samples 2

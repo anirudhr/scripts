@@ -165,7 +165,8 @@ psg() { ps aux | grep -v grep | grep -i $1 ; }
 popularcommands() { history | awk '{a[$'$(echo "1 2 $HISTTIMEFORMAT" | wc -w)']++}END{for(i in a){print a[i] " " i}}' | sort -rn | head ; }
 ports() { lsof -Pan -i tcp -i udp; }
 #ffa() { (($# < 2)) && { echo "usage: ffa pat1 pat2 [...]" >&2; return 1; };awk "/$1/$(printf "&&/%s/" "${@:2}")"'{ print FILENAME ":" $0 }' *; } # http://www.commandlinefu.com/commands/view/7517/where-did-i-write-this
-
+rmbgd() { rm "`gconftool-2 -g /desktop/gnome/background/picture_filename`"; }
+bgd() { gconftool-2 -g /desktop/gnome/background/picture_filename; }
 export EDITOR=vim
 
 alias sl='sl -e'
