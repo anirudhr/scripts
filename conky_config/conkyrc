@@ -20,8 +20,8 @@ draw_graph_borders yes
 default_color green
 default_shade_color black
 default_outline_color green #default is gr33n only
-alignment tl
-gap_x 130 #130
+alignment tr
+gap_x 50 #130
 gap_y 50 #50
 no_buffers yes
 uppercase no
