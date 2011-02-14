@@ -1,5 +1,10 @@
-$alignc Status: [--datatype=ST]
-$alignc Title: [--datatype=TI]
-$alignc Artist: [--datatype=AR]
-$alignc Album: [--datatype=AL]
-$alignc Position: [--datatype=PT]/[--datatype=LE] {[--datatype=PP]%}
+Status:
+[--datatype=ST]
+Title:
+[--datatype=TI]
+Artist:
+[--datatype=AR]
+Album:
+[--datatype=AL]
+Position:
+[--datatype=PT]/[--datatype=LE] {[--datatype=PP]%}

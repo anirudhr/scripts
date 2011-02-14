@@ -1,21 +1,21 @@
-color1 black
-color2 darkblue
+color1 lightgreen
+color2 lightblue
 color3 red
 background yes
-xftfont LucidaConsole:size=8
 use_xft yes
+xftfont Arial:size=8
 xftalpha 0.9
 update_interval 1
 total_run_times 0
-own_window no #no when in low graphics mode
+own_window yes #no when in low graphics mode
 own_window_type normal
 own_window_transparent yes
 own_window_argb_visual yes
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 double_buffer yes
-minimum_size 150 #8
+minimum_size 75 #8
 maximum_width 300
-draw_shades yes
+draw_shades no
 draw_outline no
 draw_borders no
 draw_graph_borders yes
@@ -23,7 +23,7 @@ default_color black
 default_shade_color grey
 default_outline_color green
 alignment tl
-gap_x 10 #130
+gap_x 0 #130
 gap_y 10 #50
 no_buffers yes
 uppercase no
@@ -34,37 +34,56 @@ if_up_strictness address
 imlib_cache_size 8192
 
 TEXT
-${color2}Uptime: ${color1}${alignr}$uptime
-#CPU Temp: ${alignr}${acpitemp} C / 100 C
-#CPU Freq: ${alignr}${freq} MHz
-#GPU Temp: ${alignr}${nvidia temp} C / ${nvidia threshold} C
-#GPU Freq: ${alignr}${nvidia gpufreq} MHz
-#GPU MemFreq: ${alignr}${nvidia memfreq} MHz
-${color2}Processes: ${color1}${alignr}$processes ($running_processes running)
-${color2}Time: ${color3}${alignr}${time %H%M.%S} hours
-${color2}Date: ${color3}${alignr}${time %a, %d.%m.%Y (%b)}
-${color2}CPU1   ${color1}${cpu cpu1}% ${alignr}${color2}CPU2    ${color1}${cpu cpu2}%
-${cpubar cpu1 4,75} ${alignr}${cpubar cpu2 4,75}
-${cpugraph cpu1 25,75} ${alignr}${cpugraph cpu2 25,75}
-${color2}RAM ${color1}${alignr}$mem / $memmax ($memperc%)
-${membar 4}
-${color2}SWAP ${color1}${alignr}$swap / $swapmax ($swapperc%)
+${color2}Uptime:
+    ${color1}$uptime
+#CPU Temp:
+#    ${acpitemp} C / 100 C
+#CPU Freq:
+#    ${freq} MHz
+#GPU Temp:
+#    ${nvidia temp} C / ${nvidia threshold} C
+#GPU Freq:
+#    ${nvidia gpufreq} MHz
+#GPU MemFreq:
+#    ${nvidia memfreq} MHz
 
-${color2}Highest CPU $alignr CPU% MEM%${color1}
-${top name 1}$alignr${top cpu 1}${top mem 1}
-${top name 2}$alignr${top cpu 2}${top mem 2}
-${top name 3}$alignr${top cpu 3}${top mem 3}
+${color2}Processes:
+    ${color1}$processes ($running_processes running)
+
+${color2}Time:
+    ${font Arial:size=12}${color3}${time %H%M.%S} hours ${font}
+${color2}Date:
+    ${font Arial:size=12}${color3}${time %a, %d.%m.%Y (%b)} ${font}
+
+${color2}CPU1   ${color1}${cpu cpu1}%
+#${cpubar cpu1 4,75}
+${cpugraph cpu1 25,75}
+${color2}CPU2   ${color1}${cpu cpu2}%
+#${cpubar cpu2 4,75}
+${cpugraph cpu2 25,75}
+
+${color2}RAM ${color1} ${mem}/${memmax} ($memperc%)
+${color2}SWAP ${color1} ${swap}/${swapmax} ($swapperc%)
+
+${color2}Highest CPU (CPU%, MEM%) ${color1}
+${top name 1} (${top cpu 1}, ${top mem 1})
+${top name 2} (${top cpu 2}, ${top mem 2})
+${top name 3} (${top cpu 3}, ${top mem 3})
 ${if_up ppp0}
-${color2}PPP0 ${hr 1}${color1}
-Down ${downspeedf ppp0} k/s ${alignr}Up ${upspeedf ppp0} k/s
-${downspeedgraph ppp0 25,75} ${alignr}${upspeedgraph ppp0 25,75}
-Total ${totaldown ppp0} ${alignr}Total ${totalup ppp0}
+${color2}PPP0
+${color1} Down ${font Arial:size=10} ${color3} ${downspeedf ppp0} k/s ${font}
+${color1} ${downspeedgraph ppp0 25,75}
+Total ${totaldown ppp0}
+Up ${font Arial:size=10} ${color3} ${upspeedf ppp0} k/s ${font}
+${color1} ${upspeedgraph ppp0 25,75}
+Total ${totalup ppp0}
 $else
 ${color2}PPP0 DOWN${color1}
 $endif
+
 ${if_running rhythmbox}
 ${color2}RHYTHMBOX${color1}
 ${execp conkyRhythmbox --template=~/.conkyRhythmbox.template}
-$else
-${color2}RHYTHMBOX DOWN${color1}
+#$else
+#${color2}RHYTHMBOX DOWN${color1}
 $endif
