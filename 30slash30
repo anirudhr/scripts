@@ -74,8 +74,8 @@ function set_vals
 }
 #############################################
 #CODE
-if [ $# -eq 4 ] #30slash30 -purple WORK PLAY X
-then
+case $# in
+4) #30slash30 -purple WORK PLAY X
     if [[ $args = *-purple* ]]
     then
         pur=1
@@ -85,13 +85,13 @@ then
     else
             err_exit
     fi
-elif [ $# -eq 3 ] #30slash30 WORK PLAY X
-then
+;;
+3) #30slash30 WORK PLAY X
 	S0MIN=$1
 	S1MIN=$2
 	ch=$3
-elif [ $# -eq 2 ] #30slash30 -purple X
-then
+;;
+2) #30slash30 -purple X
     if [[ $args = *-purple* ]]
     then
         pur=1
@@ -101,8 +101,8 @@ then
     else
             err_exit
     fi
-elif [ $# -eq 1 ] #30slash30 X
-then
+;;
+1) #30slash30 X
     if ! [ "$args" -eq "$args" 2> /dev/null ]
     then
         err_exit
@@ -111,9 +111,11 @@ then
 	    S1MIN=$def30
 	    ch=$1
     fi
-else
+;;
+*)
    	usage
-fi
+;;
+esac
 
 #############################################
 
@@ -124,10 +126,8 @@ fi
 	if [ $ch -eq 1 ]
 	then
 		set_vals 'Play' 'Work' 'available' 'unavailable'
-		fi
 	else
 		set_vals 'Work' 'Play' 'unavailable' 'available'
-		fi
 	fi
 
 	clear
