@@ -9,15 +9,17 @@
 
 # Also, must add in future: ASCII graphic of an Elvin Gerbil solemnly dancing the mazurka during play time, and coding during work time.
 
-#Cool feature! Change Pidgin status. Thanks to Manoj Mardithaya for suggesting this.
-#(13:51:47) Manoj: purple-remote "setstatus?status=away&message=30 mins of work."
-#(13:51:55) Manoj: purple-remote "setstatus?status=available&message=play time"
-#(13:51:57) Manoj: there
-#(13:51:59) Manoj: just run those
-#This feature will be added soon.
+#Thanks to Manoj Mardithaya for suggesting the purple functionality.
+
+# ADD SOON: Make the code neat! Add functions, etc.
+# Once functions are added, echo the usage whenever errors are encountered.
 
 args=$*
 pur=0
+
+def30=3
+def60=3
+
 if [ $# -eq 4 ] #30slash30 -purple WORK PLAY X
 then
     if [[ $args = *-purple* ]]
@@ -27,8 +29,8 @@ then
         S1MIN=$3
         ch=$4
     else
-            echo "Error! Wrong syntax."
-            exit
+            echo "Error! Wrong syntax." > /dev/stderr
+            exit 1
     fi
 elif [ $# -eq 3 ] #30slash30 WORK PLAY X
 then
@@ -40,18 +42,24 @@ then
     if [[ $args = *-purple* ]]
     then
         pur=1
-        S0MIN=30
-        S1MIN=30
+        S0MIN=$def30
+        S1MIN=$def30
         ch=$2
     else
-            echo "Error! Wrong syntax."
-            exit
+            echo "Error! Wrong syntax." > /dev/stderr
+            exit 1
     fi
 elif [ $# -eq 1 ] #30slash30 X
 then
-	S0MIN=30
-	S1MIN=30
-	ch=$1
+    if ! [ "$args" -eq "$args" 2> /dev/null ]
+    then
+        echo "Error! Wrong syntax." > /dev/stderr
+        exit 1
+    else
+	    S0MIN=$def30
+	    S1MIN=$def30
+	    ch=$1
+    fi
 else
    	echo 'Usage: 30slash30 [-purple] [WORKMINUTES PLAYMINUTES] X'
     echo 'Where X is 1 if you want to play first, and not 1 if you want to work first.'
@@ -62,7 +70,7 @@ fi
 
 	S0MIN=`expr $S0MIN - 1`
 	S1MIN=`expr $S1MIN - 1`
-	SECINMIN=`expr 60 - 1`
+	SECINMIN=`expr $def60 - 1`
 	
 	if [ $ch -eq 1 ]
 	then
@@ -84,10 +92,15 @@ fi
 	fi
 
 	clear
-	k=-1
+	
 	while [ 1 ]
 	do
-	    k=`$k + 1`
+	
+	    if [ $pur -eq 1 ]
+		then
+	        purple-remote "setstatus?status=$purmsg0"
+		fi
+	    
 		i=$S0MIN
 		while [ $i -ge 0 ]
 		do
@@ -104,16 +117,12 @@ fi
 		done
 	
 		cvlc /usr/share/sounds/ubuntu/stereo/phone-outgoing-busy.ogg 2> /dev/null &
-		if [ $pur -eq 1 ]
+
+	    if [ $pur -eq 1 ]
 		then
-		    if [ expr $k % 2 ]
-		    then
-		        echo $purmsg1
-	        else
-	            echo $purmsg2
-            fi
+	        purple-remote "setstatus?status=$purmsg1"
 		fi
-	
+		
 		i=$S1MIN
 		while [ $i -ge 0 ]
 		do
