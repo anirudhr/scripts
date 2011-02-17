@@ -9,28 +9,57 @@
 
 # Also, must add in future: ASCII graphic of an Elvin Gerbil solemnly dancing the mazurka during play time, and coding during work time.
 
-#Cool feature! Change Pidgin status. Thanks to Manoj Mardithaya for helping me with this.
+#Cool feature! Change Pidgin status. Thanks to Manoj Mardithaya for suggesting this.
 #(13:51:47) Manoj: purple-remote "setstatus?status=away&message=30 mins of work."
 #(13:51:55) Manoj: purple-remote "setstatus?status=available&message=play time"
 #(13:51:57) Manoj: there
 #(13:51:59) Manoj: just run those
 #This feature will be added soon.
 
-if [ $# -ne 3 -a $# -ne 1 ]
+args=$*
+pur=0
+if [ $# -eq 4 ] #30slash30 -purple WORK PLAY X
 then
-	echo 'Usage: 30slash30 [WORKMINUTES PLAYMINUTES] X'
-	echo 'Where X is 1 if you want to play first, and not 1 if you want to work first'
+    if [[ $args = *-purple* ]]
+    then
+        pur=1
+        S0MIN=$2
+        S1MIN=$3
+        ch=$4
+    else
+            echo "Error! Wrong syntax."
+            exit
+    fi
+elif [ $# -eq 3 ] #30slash30 WORK PLAY X
+then
+	S0MIN=$1
+	S1MIN=$2
+	ch=$3
+elif [ $# -eq 2 ] #30slash30 -purple X
+then
+    if [[ $args = *-purple* ]]
+    then
+        pur=1
+        S0MIN=30
+        S1MIN=30
+        ch=$2
+    else
+            echo "Error! Wrong syntax."
+            exit
+    fi
+elif [ $# -eq 1 ] #30slash30 X
+then
+	S0MIN=30
+	S1MIN=30
+	ch=$1
 else
-	if [ $# -eq 3 ]
-	then
-		S0MIN=$1
-		S1MIN=$2
-		ch=$3
-	else
-		S0MIN=30
-		S1MIN=30
-		ch=$1
-	fi	
+   	echo 'Usage: 30slash30 [-purple] [WORKMINUTES PLAYMINUTES] X'
+    echo 'Where X is 1 if you want to play first, and not 1 if you want to work first.'
+    echo 'Set attribute -purple if you want your Purple status changed.'
+    exit 
+fi
+#############################################
+
 	S0MIN=`expr $S0MIN - 1`
 	S1MIN=`expr $S1MIN - 1`
 	SECINMIN=`expr 60 - 1`
@@ -39,15 +68,26 @@ else
 	then
 		S0='Play'
 		S1='Work'
+		if [ $pur -eq 1 ]
+		then
+		    purmsg0='available'
+		    purmsg1='unavailable'
+		fi
 	else
 		S0='Work'
 		S1='Play'
+		if [ $pur -eq 1 ]
+		then
+		    purmsg0='unavailable'
+		    purmsg1='available'
+		fi
 	fi
 
 	clear
-	
+	k=-1
 	while [ 1 ]
 	do
+	    k=`$k + 1`
 		i=$S0MIN
 		while [ $i -ge 0 ]
 		do
@@ -64,6 +104,14 @@ else
 		done
 	
 		cvlc /usr/share/sounds/ubuntu/stereo/phone-outgoing-busy.ogg 2> /dev/null &
+		if [ $pur -eq 1 ]
+		then
+		    if [ expr $k % 2 ]
+		    then
+		        echo $purmsg1
+	        else
+	            echo $purmsg2
+		fi
 	
 		i=$S1MIN
 		while [ $i -ge 0 ]

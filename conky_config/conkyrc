@@ -3,7 +3,7 @@ color2 lightblue
 color3 red
 background yes
 use_xft yes
-xftfont Arial:size=8
+xftfont Sans:size=8
 xftalpha 0.9
 update_interval 1
 total_run_times 0
