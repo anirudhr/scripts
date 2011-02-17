@@ -1,7 +1,9 @@
 #!/bin/bash
 
+#############################################
+#NOTES
 # This script takes inspiration from Chetan Surpur's blog post http://chetansurpur.com/blog/2010/11/magic-work-cycle.html
-# I used to use http://www.magicworkcycle.com/ but the slowness of my intertubes connection (the bell sound was getting torn apart) led me to yearn for an offline equivalent.
+# Earlier, I used http://www.magicworkcycle.com/ but the slowness of my intertubes connection (the bell sound was getting stretched) led me to yearn for an offline equivalent.
 
 # Quick thanks to http://linuxhelp.blogspot.com/2005/10/10-seconds-guide-to-bash-shell.html
 # I plan to add neatness with tput: http://www.ibm.com/developerworks/aix/library/au-learningtput/index.html
@@ -11,15 +13,67 @@
 
 #Thanks to Manoj Mardithaya for suggesting the purple functionality.
 
-# ADD SOON: Make the code neat! Add functions, etc.
-# Once functions are added, echo the usage whenever errors are encountered.
-
+#############################################
+#VALUES TO BE CHANGED DURING TESTS
+def30=30
+def60=60
+#############################################
+#GLOBAL VARIABLES
 args=$*
 pur=0
+#############################################
+#FUNCTIONS
+function usage
+{
+    echo 'Usage: 30slash30 [-purple] [WORKMINUTES PLAYMINUTES] X' > /dev/stderr
+    echo 'Where X is 1 if you want to play first, and not 1 if you want to work first.' > /dev/stderr
+    echo 'Set attribute -purple if you want your Purple status changed.' > /dev/stderr
+    exit 1
+}
 
-def30=3
-def60=3
+function err_exit
+{
+    echo "Error! Wrong syntax." > /dev/stderr
+    usage
+    exit 1
+}
 
+function countdown
+{
+    if [ $pur -eq 1 ]
+	then
+        purple-remote "setstatus?status=$3"
+	fi
+	
+    i=$1
+	while [ $i -ge 0 ]
+	do
+		j=$SECINMIN
+		while [ $j -ge 0 ]
+		do
+			echo $2
+			echo $i ':' $j
+			sleep 1
+			j=`expr $j - 1`
+			clear
+		done
+		i=`expr $i - 1`
+	done
+	cvlc /usr/share/sounds/ubuntu/stereo/phone-outgoing-busy.ogg 2> /dev/null &
+}
+
+function set_vals
+{
+    S0=$1
+    S1=$2
+    if [ $pur -eq 1 ]
+    then
+        purmsg0=$3
+        purmsg1=$4
+    fi
+}
+#############################################
+#CODE
 if [ $# -eq 4 ] #30slash30 -purple WORK PLAY X
 then
     if [[ $args = *-purple* ]]
@@ -29,8 +83,7 @@ then
         S1MIN=$3
         ch=$4
     else
-            echo "Error! Wrong syntax." > /dev/stderr
-            exit 1
+            err_exit
     fi
 elif [ $# -eq 3 ] #30slash30 WORK PLAY X
 then
@@ -46,26 +99,22 @@ then
         S1MIN=$def30
         ch=$2
     else
-            echo "Error! Wrong syntax." > /dev/stderr
-            exit 1
+            err_exit
     fi
 elif [ $# -eq 1 ] #30slash30 X
 then
     if ! [ "$args" -eq "$args" 2> /dev/null ]
     then
-        echo "Error! Wrong syntax." > /dev/stderr
-        exit 1
+        err_exit
     else
 	    S0MIN=$def30
 	    S1MIN=$def30
 	    ch=$1
     fi
 else
-   	echo 'Usage: 30slash30 [-purple] [WORKMINUTES PLAYMINUTES] X'
-    echo 'Where X is 1 if you want to play first, and not 1 if you want to work first.'
-    echo 'Set attribute -purple if you want your Purple status changed.'
-    exit 
+   	usage
 fi
+
 #############################################
 
 	S0MIN=`expr $S0MIN - 1`
@@ -74,20 +123,10 @@ fi
 	
 	if [ $ch -eq 1 ]
 	then
-		S0='Play'
-		S1='Work'
-		if [ $pur -eq 1 ]
-		then
-		    purmsg0='available'
-		    purmsg1='unavailable'
+		set_vals 'Play' 'Work' 'available' 'unavailable'
 		fi
 	else
-		S0='Work'
-		S1='Play'
-		if [ $pur -eq 1 ]
-		then
-		    purmsg0='unavailable'
-		    purmsg1='available'
+		set_vals 'Work' 'Play' 'unavailable' 'available'
 		fi
 	fi
 
@@ -95,49 +134,8 @@ fi
 	
 	while [ 1 ]
 	do
-	
-	    if [ $pur -eq 1 ]
-		then
-	        purple-remote "setstatus?status=$purmsg0"
-		fi
-	    
-		i=$S0MIN
-		while [ $i -ge 0 ]
-		do
-			j=$SECINMIN
-			while [ $j -ge 0 ]
-			do
-				echo $S0
-				echo $i ':' $j
-				sleep 1
-				j=`expr $j - 1`
-				clear
-			done
-			i=`expr $i - 1`
-		done
-	
-		cvlc /usr/share/sounds/ubuntu/stereo/phone-outgoing-busy.ogg 2> /dev/null &
-
-	    if [ $pur -eq 1 ]
-		then
-	        purple-remote "setstatus?status=$purmsg1"
-		fi
+	    countdown $S0MIN $S0 $purmsg0
 		
-		i=$S1MIN
-		while [ $i -ge 0 ]
-		do
-			j=$SECINMIN
-			while [ $j -ge 0 ]
-			do
-				echo $S1
-				echo $i ':' $j
-				sleep 1
-				j=`expr $j - 1`
-				clear
-			done
-			i=`expr $i - 1`
-		done
-	
-		cvlc /usr/share/sounds/ubuntu/stereo/phone-outgoing-busy.ogg 2> /dev/null &
+		countdown $S1MIN $S1 $purmsg1
 	done
 fi
