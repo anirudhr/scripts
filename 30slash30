@@ -111,6 +111,7 @@ fi
 		        echo $purmsg1
 	        else
 	            echo $purmsg2
+            fi
 		fi
 	
 		i=$S1MIN
