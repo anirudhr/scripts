@@ -78,10 +78,10 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-alias ll='ls -l'
+alias ll='ls -lh'
 alias la='ls -A'
 alias l='ls -CF'
-alias lla='ls -Al'
+alias lla='ls -Alh'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -121,7 +121,7 @@ PS1="\[\033[33m\]\t\[\033[m\]-\[\033[31m\]\u\[\033[m\]:\[\033[33;1m\]\w\[\033[m\
 alias cdd='cd "$OLDPWD"'
 
 #Adding my sh_files folder to $PATH
-export PATH=$PATH:/script_files/:/script_files/accounts:/script_files/apt:/script_files/coll:
+export PATH=$PATH:/script_files
 
 #COPY WITH PROGRESS BAR
 cp_p()
@@ -146,16 +146,6 @@ cp_p()
 #java home
 export JAVA_HOME="/usr/lib/jvm/java-6-openjdk" # "/usr/lib/jvm/java-6-sun/"
 
-#Shortcut for sources.list file
-export SOU=/etc/apt/sources.list
-
-export SOUD=/etc/apt/sources.list.d
-
-#export GRUBCFG=/boot/grub/grub.cfg
-#export ACADEMIC=/media/vol0/academic
-#export VOL0=/media/vol0/
-#export VOL1=/media/vol1/
-
 nicemount() { (echo "DEVICE PATH TYPE FLAGS" && mount | awk '$2=$4="";1') | column -t; }
 volumes() { watch -d -n 1 'df -h | grep '/dev/sd' | grep -v 'boot' | sort; '; }
 devices() { watch -d -n 1 'df -h'; }
@@ -167,6 +157,9 @@ ports() { lsof -Pan -i tcp -i udp; }
 #ffa() { (($# < 2)) && { echo "usage: ffa pat1 pat2 [...]" >&2; return 1; };awk "/$1/$(printf "&&/%s/" "${@:2}")"'{ print FILENAME ":" $0 }' *; } # http://www.commandlinefu.com/commands/view/7517/where-did-i-write-this
 rmbgd() { rm "`gconftool-2 -g /desktop/gnome/background/picture_filename`"; }
 bgd() { gconftool-2 -g /desktop/gnome/background/picture_filename; }
+openbgd() { echo '"'`gconftool-2 -g /desktop/gnome/background/picture_filename`'"' | xargs eog; }
+cpbgd() { echo '"'`gconftool-2 -g /desktop/gnome/background/picture_filename`'"' | xclip -sel clip; }
+
 export EDITOR=vim
 
 alias sl='sl -e'
