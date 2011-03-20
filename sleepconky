@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# My quick-fix for GNOME's killing of conky at startup
+
+sleep 15;
+conky;
