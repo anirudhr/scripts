@@ -140,3 +140,12 @@ cpbgd() { echo '"'`gconftool-2 -g /desktop/gnome/background/picture_filename`'"'
 #          }
 #          END { print "" }' total_size=$(stat -c '%s' "${1}") count=0
 # }
+
+torinit()
+{
+	http_proxy=http://127.0.0.1:8118/
+	HTTP_PROXY=$http_proxy
+	export http_proxy HTTP_PROXY
+}
+
+tordestr() { unset http_proxy HTTP_PROXY; }
