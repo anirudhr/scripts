@@ -51,9 +51,11 @@ ${color2}Processes:
     ${color1}$processes ($running_processes running)
 
 ${color2}Time:
-    ${font Arial:size=12}${color3}${time %H%M.%S} hours ${font}
-${color2}Date:
-    ${font Arial:size=12}${color3}${time %a, %d.%m.%Y (%b)} ${font}
+  ${font Arial:size=12}${color3}${time %H%M.%S} hours ${font}
+${color2}Date: ${font Arial:size=12}${color3}
+  ${time %a}
+  ${time %d.%m.%Y}
+  ${time (%b)} ${font}
 
 ${color2}CPU1   ${color1}${cpu cpu1}%
 #${cpubar cpu1 4,75}

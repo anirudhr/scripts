@@ -90,3 +90,5 @@ PS1="\[\033[33m\]\t\[\033[m\]-\[\033[31m\]\u\[\033[m\]:\[\033[33;1m\]\w\[\033[m\
 
 #Adding my script_files folder to $PATH
 export PATH=$PATH:/script_files
+
+clipappend() { xclip -o >> temp; echo '' >> temp; }
