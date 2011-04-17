@@ -6,5 +6,9 @@ else
 	while [ 1 ]
 	do
 		apt-get -y --allow-unauthenticated upgrade
+		if [ $? -eq 0 ]
+                then
+                        exit
+                fi
 	done
 fi

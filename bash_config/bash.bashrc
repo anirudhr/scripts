@@ -82,6 +82,9 @@ alias cdd='cd "$OLDPWD"'
 alias sl='sl -e'
 alias LS='sl -e'
 
+alias ping='echo Use nping'
+alias nc='echo Use ncat'
+
 ########## PATHS
 export PATH=/usr/local/cuda/bin/:$PATH
 #$LD_LIBRARY_PATH FOR CUDA #Shouldn't I be {editing /etc/ld.conf.d or adding a .conf in /etc/ld.so.conf.d} and running ldconfig to achieve this?
@@ -93,8 +96,6 @@ export HISTFILESIZE=100000
 export PATH=/mnt/ns2/ns-allinone-2.34/bin:/mnt/ns2/ns-allinone-2.34/tcl8.4.18/unix:/mnt/ns2/ns-allinone-2.34/tk8.4.18/unix:$PATH
 export LD_LIBRARY_PATH=/mnt/ns2/ns-allinone-2.34/otcl-1.13:/mnt/ns2/ns-allinone-2.34/lib:$LD_LIBRARY_PATH
 export TCL_LIBRARY_PATH=/mnt/ns2/ns-allinone-2.34/tcl8.4.18/library:$TCL_LIBRARY_PATH
-alias ping='echo Use nping'
-alias nc='echo Use ncat'
 
 ########## FUNCTIONS
 
