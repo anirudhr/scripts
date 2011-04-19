@@ -1,5 +1,5 @@
-color1 lightblue
-color2 lightgreen
+color1 darkblue
+color2 darkgreen
 color3 red
 background yes
 use_xft yes
@@ -47,8 +47,8 @@ ${color2}Uptime:
 #GPU MemFreq:
 #    ${nvidia memfreq} MHz
 
-${color2}Processes:
-    ${color1}$processes ($running_processes running)
+#${color2}Processes:
+#    ${color1}$processes ($running_processes running)
 
 ${color2}Time:
   ${font Arial:size=12}${color3}${time %H%M.%S} hours ${font}
@@ -64,13 +64,19 @@ ${color2}CPU2   ${color1}${cpu cpu2}%
 #${cpubar cpu2 4,75}
 ${cpugraph cpu2 25,75}
 
-${color2}RAM ${color1} ${mem}/${memmax} ($memperc%)
-${color2}SWAP ${color1} ${swap}/${swapmax} ($swapperc%)
+${color2}RAM ${color1} ${mem}/${memmax} #($memperc%)
 
-${color2}Highest CPU (CPU%, MEM%) ${color1}
-${top name 1} (${top cpu 1}, ${top mem 1})
-${top name 2} (${top cpu 2}, ${top mem 2})
-${top name 3} (${top cpu 3}, ${top mem 3})
+${color2}SWAP ${color1} ${swap}/${swapmax} #($swapperc%)
+
+
+${color2}Highest CPU (CPU%)#, MEM%) ${color1}
+
+${top name 1} (${top cpu 1})#, ${top mem 1})
+
+${top name 2} (${top cpu 2})#, ${top mem 2})
+
+${top name 3} (${top cpu 3})#, ${top mem 3})
+
 ${if_up ppp0}
 ${color2}PPP0
 ${color1} Down ${font Arial:size=10} ${color3} ${downspeedf ppp0} k/s ${font}
