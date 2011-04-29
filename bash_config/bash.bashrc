@@ -101,7 +101,7 @@ export TCL_LIBRARY_PATH=/mnt/ns2/ns-allinone-2.34/tcl8.4.18/library:$TCL_LIBRARY
 
 nicemount() { (echo "DEVICE PATH TYPE FLAGS" && mount | awk '$2=$4="";1') | column -t; }
 
-volumes() { watch -d -n 1 'df -h | grep '/dev/sd' | grep -v 'boot' | sort; '; }
+volumes() { watch -d -n 1 'df -h | grep -e 'Filesystem' -e '/dev/sd' | grep -v 'boot' | sort -r; '; }
 
 devices() { watch -d -n 1 'df -h'; }
 

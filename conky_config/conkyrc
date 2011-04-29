@@ -36,6 +36,8 @@ imlib_cache_size 8192
 TEXT
 ${color2}Uptime:
     ${color1}$uptime
+#${color2}Users (${user_number}):
+#    ${color1}$user_names
 #CPU Temp:
 #    ${acpitemp} C / 100 C
 #CPU Freq:
@@ -46,10 +48,10 @@ ${color2}Uptime:
 #    ${nvidia gpufreq} MHz
 #GPU MemFreq:
 #    ${nvidia memfreq} MHz
-
+#
 #${color2}Processes:
 #    ${color1}$processes ($running_processes running)
-
+#
 ${color2}Time:
   ${font Arial:size=12}${color3}${time %H%M.%S} hours ${font}
 ${color2}Date: ${font Arial:size=12}${color3}
@@ -64,29 +66,32 @@ ${color2}CPU2   ${color1}${cpu cpu2}%
 #${cpubar cpu2 4,75}
 ${cpugraph cpu2 25,75}
 
-${color2}RAM ${color1} ${mem}/${memmax} #($memperc%)
+${color2}RAM ${color1} ${mem}/${memmax} ($memperc%)
 
-${color2}SWAP ${color1} ${swap}/${swapmax} #($swapperc%)
+${color2}SWAP ${color1} ${swap}/${swapmax} ($swapperc%)
 
+${color2}Highest CPU (CPU%) ${color1}
 
-${color2}Highest CPU (CPU%)#, MEM%) ${color1}
+${top name 1} (${top cpu 1})
+${top name 2} (${top cpu 2})
+${top name 3} (${top cpu 3})
 
-${top name 1} (${top cpu 1})#, ${top mem 1})
+${color2}Highest MEM (MEM%) ${color1}
 
-${top name 2} (${top cpu 2})#, ${top mem 2})
-
-${top name 3} (${top cpu 3})#, ${top mem 3})
-
-${if_up ppp0}
-${color2}PPP0
-${color1} Down ${font Arial:size=10} ${color3} ${downspeedf ppp0} k/s ${font}
-${color1} ${downspeedgraph ppp0 25,75}
-Total ${totaldown ppp0}
-Up ${font Arial:size=10} ${color3} ${upspeedf ppp0} k/s ${font}
-${color1} ${upspeedgraph ppp0 25,75}
-Total ${totalup ppp0}
+${top_mem name 1} (${top_mem mem 1})
+${top_mem name 2} (${top_mem mem 2})
+${top_mem name 3} (${top_mem mem 3})
+#
+${if_up eth3}
+${color2}ETH3
+${color1} Down ${font Arial:size=10} ${color3} ${downspeedf eth3} k/s ${font}
+${color1} ${downspeedgraph eth3 25,75}
+Total ${totaldown eth3}
+Up ${font Arial:size=10} ${color3} ${upspeedf eth3} k/s ${font}
+${color1} ${upspeedgraph eth3 25,75}
+Total ${totalup eth3}
 $else
-${color2}PPP0 DOWN${color1}
+${color2}ETH3 DOWN${color1}
 $endif
 
 ${if_running rhythmbox}
