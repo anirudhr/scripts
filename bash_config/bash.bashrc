@@ -86,9 +86,9 @@ alias ping='echo Use nping'
 alias nc='echo Use ncat'
 
 ########## PATHS
-export PATH=/usr/local/cuda/bin/:$PATH
+#export PATH=/usr/local/cuda/bin/:$PATH
 #$LD_LIBRARY_PATH FOR CUDA #Shouldn't I be {editing /etc/ld.conf.d or adding a .conf in /etc/ld.so.conf.d} and running ldconfig to achieve this?
-export LD_LIBRARY_PATH=/usr/local/cuda/lib/:$LD_LIBRARY_PATH
+#export LD_LIBRARY_PATH=/usr/local/cuda/lib/:$LD_LIBRARY_PATH
 export JAVA_HOME="/usr/lib/jvm/java-6-openjdk" # "/usr/lib/jvm/java-6-sun/"
 export EDITOR=vim
 export HISTSIZE=100000
@@ -124,6 +124,8 @@ bgd() { gconftool-2 -g /desktop/gnome/background/picture_filename; }
 openbgd() { echo '"'`gconftool-2 -g /desktop/gnome/background/picture_filename`'"' | xargs eog; }
 
 cpbgd() { echo '"'`gconftool-2 -g /desktop/gnome/background/picture_filename`'"' | xclip -sel clip; }
+
+cppwd() { echo \"`pwd`\" | xclip -sel clip; }
 
 # cp_p()
 # {

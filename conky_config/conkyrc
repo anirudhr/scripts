@@ -1,5 +1,5 @@
-color1 darkblue
-color2 darkgreen
+color1 blue
+color2 green
 color3 red
 background yes
 use_xft yes
