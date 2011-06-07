@@ -93,10 +93,9 @@ Total ${totalup eth3}
 $else
 ${color2}ETH3 DOWN${color1}
 $endif
-
-${if_running rhythmbox}
-${color2}RHYTHMBOX${color1}
-${execp conkyRhythmbox --template=~/.conkyRhythmbox.template}
-#$else
-#${color2}RHYTHMBOX DOWN${color1}
-$endif
+#${if_running rhythmbox}
+#${color2}RHYTHMBOX${color1}
+#${execp conkyRhythmbox --template=~/.conkyRhythmbox.template}
+##$else
+##${color2}RHYTHMBOX DOWN${color1}
+#$endif

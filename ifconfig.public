@@ -1,5 +1,39 @@
 #!/bin/bash
-curl ifconfig.me
+
+num_opts=$#
+
+opts=$*
+
+
+case "$num_opts" in
+
+	0)
+		echo "Usage: $0 -ip | -host | -port"
+		echo "More options will come when I find a need for them."
+		;;
+	*)
+		for i in $opts
+		do
+			case "$i" in
+				-ip)
+					echo -n "External IP Address: "
+					curl ifconfig.me/ip
+					;;
+				-host)
+					echo -n "Host: "
+					curl ifconfig.me/host
+					;;
+				-port)
+					echo -n "Port used to make the connection: "
+					curl ifconfig.me/port
+					;;
+				*)
+					echo "Bad option"
+					;;
+			esac
+		done
+		;;	
+esac
 #$ curl ifconfig.me	⇒	122.167.89.112
 #$ curl ifconfig.me/ip	⇒	122.167.89.112
 #$ curl ifconfig.me/host	⇒	ABTS-KK-Dynamic-112.89.167.122.airtelbroadband.in
