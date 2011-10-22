@@ -85,5 +85,5 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 #Adding my script_files folder to $PATH
-export PATH=$PATH:/script_files/
-export PATH=$PATH:/script_files/apt/
+export PATH=$PATH:/home/aniramac/scripts
+export PATH=$PATH:/home/aniramac/scripts/apt

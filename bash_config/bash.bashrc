@@ -84,6 +84,7 @@ alias LS='sl -e'
 
 alias ping='echo Use nping'
 alias nc='echo Use ncat'
+alias sockstat="echo Use netstat -ntul"
 
 ########## PATHS
 #export PATH=/usr/local/cuda/bin/:$PATH
@@ -93,9 +94,9 @@ export JAVA_HOME="/usr/lib/jvm/java-6-openjdk" # "/usr/lib/jvm/java-6-sun/"
 export EDITOR=vim
 export HISTSIZE=100000
 export HISTFILESIZE=100000
-export PATH=/mnt/ns2/ns-allinone-2.34/bin:/mnt/ns2/ns-allinone-2.34/tcl8.4.18/unix:/mnt/ns2/ns-allinone-2.34/tk8.4.18/unix:$PATH
-export LD_LIBRARY_PATH=/mnt/ns2/ns-allinone-2.34/otcl-1.13:/mnt/ns2/ns-allinone-2.34/lib:$LD_LIBRARY_PATH
-export TCL_LIBRARY_PATH=/mnt/ns2/ns-allinone-2.34/tcl8.4.18/library:$TCL_LIBRARY_PATH
+#export PATH=/mnt/ns2/ns-allinone-2.34/bin:/mnt/ns2/ns-allinone-2.34/tcl8.4.18/unix:/mnt/ns2/ns-allinone-2.34/tk8.4.18/unix:$PATH
+#export LD_LIBRARY_PATH=/mnt/ns2/ns-allinone-2.34/otcl-1.13:/mnt/ns2/ns-allinone-2.34/lib:$LD_LIBRARY_PATH
+#export TCL_LIBRARY_PATH=/mnt/ns2/ns-allinone-2.34/tcl8.4.18/library:$TCL_LIBRARY_PATH
 
 ########## FUNCTIONS
 
@@ -117,13 +118,13 @@ ports() { lsof -Pan -i tcp -i udp; }
 
 #ffa() { (($# < 2)) && { echo "usage: ffa pat1 pat2 [...]" >&2; return 1; };awk "/$1/$(printf "&&/%s/" "${@:2}")"'{ print FILENAME ":" $0 }' *; } # http://www.commandlinefu.com/commands/view/7517/where-did-i-write-this
 
-rmbgd() { rm "`gconftool-2 -g /desktop/gnome/background/picture_filename`"; }
+#rmbgd() { rm "`gconftool-2 -g /desktop/gnome/background/picture_filename`"; }
 
-bgd() { gconftool-2 -g /desktop/gnome/background/picture_filename; }
+#bgd() { gconftool-2 -g /desktop/gnome/background/picture_filename; }
 
-openbgd() { echo '"'`gconftool-2 -g /desktop/gnome/background/picture_filename`'"' | xargs eog; }
+#openbgd() { echo '"'`gconftool-2 -g /desktop/gnome/background/picture_filename`'"' | xargs eog; }
 
-cpbgd() { echo '"'`gconftool-2 -g /desktop/gnome/background/picture_filename`'"' | xclip -sel clip; }
+#cpbgd() { echo '"'`gconftool-2 -g /desktop/gnome/background/picture_filename`'"' | xclip -sel clip; }
 
 cppwd() { echo \"`pwd`\" | xclip -sel clip; }
 
@@ -146,11 +147,13 @@ cppwd() { echo \"`pwd`\" | xclip -sel clip; }
 #          END { print "" }' total_size=$(stat -c '%s' "${1}") count=0
 # }
 
-torinit()
-{
-	http_proxy=http://127.0.0.1:8118/
-	HTTP_PROXY=$http_proxy
-	export http_proxy HTTP_PROXY
-}
+#torinit()
+#{
+#	http_proxy=http://127.0.0.1:8118/
+#	HTTP_PROXY=$http_proxy
+#	export http_proxy HTTP_PROXY
+#}
 
-tordestr() { unset http_proxy HTTP_PROXY; }
+#tordestr() { unset http_proxy HTTP_PROXY; }
+
+clipappend() { xclip -o >> temp; echo '' >> temp; }
