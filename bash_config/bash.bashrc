@@ -157,3 +157,8 @@ cppwd() { echo \"`pwd`\" | xclip -sel clip; }
 #tordestr() { unset http_proxy HTTP_PROXY; }
 
 clipappend() { xclip -o >> temp; echo '' >> temp; }
+
+simact() { while /bin/true; do qdbus org.freedesktop.ScreenSaver /ScreenSaver SimulateUserActivity > /dev/null; sleep 1m; done }
+
+chrom() { nohup chromium-browser --incognito > /dev/null 2> /dev/null &; }
+
