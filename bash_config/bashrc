@@ -113,7 +113,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-alias gitco='git commit -a -m':x
+alias gitco='git commit -a -m'
 
 PS1='\[\033[35m\]2014-10-11_Sat_\t\[\033[m\] \[\033[31m\]\u\[\033[m\]:\[\033[32m\]\w\[\033[m\]\n$ '
 
