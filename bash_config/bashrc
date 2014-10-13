@@ -151,9 +151,9 @@ mininetstart ()
 { 
     if [ `VBoxManage list runningvms | grep -c mininet` -eq 0 ]; then
         VBoxManage startvm "mininet" --type headless;
-        sleep 3;
+        sleep 5;
     fi;
-    sshfs root@localhost:/ -p 2223 -o IdentityFile=~/.ssh/id_rsa /media/mininet;
+    sshfs mininet@localhost:/home/mininet -p 2223 -o IdentityFile=~/.ssh/id_rsa /media/mininet;
     ssh -X -p2223 $1 mininet@localhost
 }
 mininetstartconsole () 
@@ -188,7 +188,7 @@ ubstart ()
 { 
     if [ `VBoxManage list runningvms | grep -c Ubuntu` -eq 0 ]; then
         VBoxManage startvm "Ubuntu Server" --type headless;
-        sleep 3;
+        sleep 5;
     fi;
     ssh -X -p2222 $1 a@localhost
 }
