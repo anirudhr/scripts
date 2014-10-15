@@ -207,3 +207,4 @@ ubstart ()
     fi;
     ssh -X -p2222 $1 a@localhost;
 }
+alias sl='ls'
