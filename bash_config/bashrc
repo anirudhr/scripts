@@ -1,3 +1,4 @@
+#:indentSize=4:tabSize=4:noTabs=true:wrap=soft:
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -121,7 +122,7 @@ jedittab ()
 { 
     echo ':indentSize=4:tabSize=4:noTabs=true:wrap=soft:' | xclip -sel clip
 }
-mnkill () 
+sdnkill () 
 { 
     if [ `VBoxManage list runningvms | grep -c mininet` -eq 0 ]; then
         echo "VM not running.";
@@ -136,7 +137,7 @@ mnkill ()
         fi;
     fi
 }
-mnstop ()
+sdnstop ()
 {
    if [ `VBoxManage list runningvms | grep -c mininet` -eq 0 ]; then
         echo "VM not running.";
@@ -151,7 +152,7 @@ mnstop ()
         fi;
     fi
 }
-mnstart () 
+sdnstart () 
 { 
     if [ `VBoxManage list runningvms | grep -c mininet` -eq 0 ]; then
         VBoxManage startvm "mininet" --type headless;
@@ -162,13 +163,13 @@ mnstart ()
     fi;
     ssh -X -p2223 $1 mininet@localhost
 }
-mnstartconsole () 
+sdnstartconsole () 
 { 
     VBoxManage startvm "mininet"
 }
 ubkill () 
 { 
-    if [ `VBoxManage list runningvms | grep -c 'Ubuntu Server'` -eq 0 ]; then
+    if [ `VBoxManage list runningvms | grep -c 'Ubuntu Server'` -eq 0 ]; then 
         echo "VM not running.";
     else
         echo "Kill?";
@@ -177,13 +178,13 @@ ubkill ()
             if [ `mount | grep -c /media/ubuntu` -eq 1 ]; then
                 sudo umount /media/ubuntu;
             fi;
-            VBoxManage controlvm "Ubuntu Server" poweroff;
+            VBoxManage controlvm "Ubuntu Server" poweroff; 
         fi;
     fi
 }
 ubstop () 
 { 
-    if [ `VBoxManage list runningvms | grep -c 'Ubuntu Server'` -eq 0 ]; then
+    if [ `VBoxManage list runningvms | grep -c 'Ubuntu Server'` -eq 0 ]; then 
         echo "VM not running.";
     else
         echo "Save state and stop?";
@@ -192,14 +193,14 @@ ubstop ()
             if [ `mount | grep -c /media/ubuntu` -eq 1 ]; then
                 sudo umount /media/ubuntu;
             fi;
-            VBoxManage controlvm "Ubuntu Server" savestate;
+            VBoxManage controlvm "Ubuntu Server" savestate; 
         fi;
     fi
 }
 ubstart () 
 { 
-    if [ `VBoxManage list runningvms | grep -c Ubuntu` -eq 0 ]; then
-        VBoxManage startvm "Ubuntu Server" --type headless;
+    if [ `VBoxManage list runningvms | grep -c Ubuntu Server` -eq 0 ]; then 
+        VBoxManage startvm "Ubuntu Server" --type headless; 
         sleep 5;
     fi;
     if [ `mount | grep -c /media/ubuntu` -eq 0 ]; then
@@ -207,3 +208,4 @@ ubstart ()
     fi;
     ssh -X -p2222 $1 a@localhost;
 }
+
