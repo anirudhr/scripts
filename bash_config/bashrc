@@ -121,7 +121,7 @@ jedittab ()
 { 
     echo ':indentSize=4:tabSize=4:noTabs=true:wrap=soft:' | xclip -sel clip
 }
-mininetkill () 
+mnkill () 
 { 
     if [ `VBoxManage list runningvms | grep -c mininet` -eq 0 ]; then
         echo "VM not running.";
@@ -136,7 +136,7 @@ mininetkill ()
         fi;
     fi
 }
-mininetstop ()
+mnstop ()
 {
    if [ `VBoxManage list runningvms | grep -c mininet` -eq 0 ]; then
         echo "VM not running.";
@@ -151,7 +151,7 @@ mininetstop ()
         fi;
     fi
 }
-mininetstart () 
+mnstart () 
 { 
     if [ `VBoxManage list runningvms | grep -c mininet` -eq 0 ]; then
         VBoxManage startvm "mininet" --type headless;
@@ -162,7 +162,7 @@ mininetstart ()
     fi;
     ssh -X -p2223 $1 mininet@localhost
 }
-mininetstartconsole () 
+mnstartconsole () 
 { 
     VBoxManage startvm "mininet"
 }
@@ -207,4 +207,3 @@ ubstart ()
     fi;
     ssh -X -p2222 $1 a@localhost;
 }
-alias sl='ls'
