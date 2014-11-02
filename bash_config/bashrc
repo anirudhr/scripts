@@ -123,49 +123,94 @@ jedittab ()
     echo ':indentSize=4:tabSize=4:noTabs=true:wrap=soft:' | xclip -sel clip
 }
 sdnkill () 
-{ 
-    if [ `VBoxManage list runningvms | grep -c mininet` -eq 0 ]; then
-        echo "VM not running.";
-    else
-        echo "Kill?";
-        read kill;
-        if [ "$kill" = "y" ]; then
-            if [ `mount | grep -c /media/mininet` -eq 1 ]; then
-                sudo umount /media/mininet;
+{
+    if [ $1 -eq 1 ]; then
+        if [ `VBoxManage list runningvms | grep -c Mininet-VM1` -eq 0 ]; then
+            echo "VM not running.";
+        else
+            echo "Kill?";
+            read kill;
+            if [ "$kill" = "y" ]; then
+                if [ `mount | grep -c /media/mininet1` -eq 1 ]; then
+                    sudo umount /media/mininet1;
+                fi;
+                VBoxManage controlvm "Mininet-VM1" poweroff;
             fi;
-            VBoxManage controlvm "mininet" poweroff;
         fi;
-    fi
+    elif [ $1 -eq 2 ]; then
+        if [ `VBoxManage list runningvms | grep -c Mininet-VM2` -eq 0 ]; then
+            echo "VM not running.";
+        else
+            echo "Kill?";
+            read kill;
+            if [ "$kill" = "y" ]; then
+                if [ `mount | grep -c /media/mininet2` -eq 1 ]; then
+                    sudo umount /media/mininet2;
+                fi;
+                VBoxManage controlvm "Mininet-VM2" poweroff;
+            fi;
+        fi;
+    fi;
 }
 sdnstop ()
 {
-   if [ `VBoxManage list runningvms | grep -c mininet` -eq 0 ]; then
-        echo "VM not running.";
-    else
-        echo "Save state and stop?";
-        read kill;
-        if [ "$kill" = "y" ]; then
-            if [ `mount | grep -c /media/mininet` -eq 1 ]; then
-                sudo umount /media/mininet;
+    if [ $1 -eq 1 ]; then
+        if [ `VBoxManage list runningvms | grep -c Mininet-VM1` -eq 0 ]; then
+            echo "VM not running.";
+        else
+            echo "Save state and stop?";
+            read kill;
+            if [ "$kill" = "y" ]; then
+                if [ `mount | grep -c /media/mininet1` -eq 1 ]; then
+                    sudo umount /media/mininet1;
+                fi;
+                VBoxManage controlvm "Mininet-VM1" savestate;
             fi;
-            VBoxManage controlvm "mininet" savestate;
         fi;
-    fi
+    elif [ $1 -eq 2 ]; then
+        if [ `VBoxManage list runningvms | grep -c Mininet-VM2` -eq 0 ]; then
+            echo "VM not running.";
+        else
+            echo "Save state and stop?";
+            read kill;
+            if [ "$kill" = "y" ]; then
+                if [ `mount | grep -c /media/mininet2` -eq 1 ]; then
+                    sudo umount /media/mininet2;
+                fi;
+                VBoxManage controlvm "Mininet-VM2" savestate;
+            fi;
+        fi;
+    fi;
 }
 sdnstart () 
 { 
-    if [ `VBoxManage list runningvms | grep -c mininet` -eq 0 ]; then
-        VBoxManage startvm "mininet" --type headless;
-        sleep 5;
+    if [ $1 -eq 1 ]; then
+        if [ `VBoxManage list runningvms | grep -c Mininet-VM1` -eq 0 ]; then
+            VBoxManage startvm "Mininet-VM1" --type headless;
+            sleep 5;
+        fi;
+        if [ `mount | grep -c /media/mininet1` -eq 0 ]; then
+            sshfs mininet@mininet-vm1:/home/mininet -o IdentityFile=~/.ssh/id_rsa /media/mininet1;
+        fi;
+        ssh -X mininet@mininet-vm1
+    elif [ $1 -eq 2 ]; then
+        if [ `VBoxManage list runningvms | grep -c Mininet-VM2` -eq 0 ]; then
+            VBoxManage startvm "Mininet-VM2" --type headless;
+            sleep 5;
+        fi;
+        if [ `mount | grep -c /media/mininet2` -eq 0 ]; then
+            sshfs mininet@mininet-vm2:/home/mininet -o IdentityFile=~/.ssh/id_rsa /media/mininet2;
+        fi;
+        ssh -X mininet@mininet-vm2
     fi;
-    if [ `mount | grep -c /media/mininet` -eq 0 ]; then
-        sshfs mininet@localhost:/home/mininet -p 2223 -o IdentityFile=~/.ssh/id_rsa /media/mininet;
-    fi;
-    ssh -X -p2223 $1 mininet@localhost
 }
 sdnstartconsole () 
 { 
-    VBoxManage startvm "mininet"
+    if [ $1 -eq 1 ]; then
+        VBoxManage startvm "Mininet-VM1"
+    elif [ $1 -eq 2 ]; then
+        VBoxManage startvm "Mininet-VM2"
+    fi;
 }
 ubkill () 
 { 
@@ -178,9 +223,9 @@ ubkill ()
             if [ `mount | grep -c /media/ubuntu` -eq 1 ]; then
                 sudo umount /media/ubuntu;
             fi;
-            VBoxManage controlvm "Ubuntu Server" poweroff; 
+            VBoxManage controlvm 'Ubuntu Server' poweroff; 
         fi;
-    fi
+    fi;
 }
 ubstop () 
 { 
@@ -195,17 +240,17 @@ ubstop ()
             fi;
             VBoxManage controlvm "Ubuntu Server" savestate; 
         fi;
-    fi
+    fi;
 }
 ubstart () 
 { 
-    if [ `VBoxManage list runningvms | grep -c Ubuntu Server` -eq 0 ]; then 
-        VBoxManage startvm "Ubuntu Server" --type headless; 
+    if [ `VBoxManage list runningvms | grep -c 'Ubuntu Server'` -eq 0 ]; then 
+        VBoxManage startvm 'Ubuntu Server' --type headless; 
         sleep 5;
     fi;
     if [ `mount | grep -c /media/ubuntu` -eq 0 ]; then
-        sshfs root@localhost:/ -p 2222 -o IdentityFile=~/.ssh/id_rsa /media/ubuntu;
+        sshfs root@ubuntuserver-vm:/ -o IdentityFile=~/.ssh/id_rsa /media/ubuntu;
     fi;
-    ssh -X -p2222 $1 a@localhost;
+    ssh -X a@ubuntuserver-vm;
 }
 
